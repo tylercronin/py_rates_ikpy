@@ -79,28 +79,29 @@ plt.show()
 
 ##-------------------------------------Demonstration 3---------------------------------
 
+# import the baxter json files
 baxter_left_arm_chain = Chain.from_json_file("/Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/py_rates_ikpy-main/baxter_left_arm.json")
 baxter_right_arm_chain = Chain.from_json_file("/Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/py_rates_ikpy-main/baxter_right_arm.json")
 baxter_pedestal_chain = Chain.from_json_file("/Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/py_rates_ikpy-main/baxter_pedestal.json")
 baxter_head_chain = Chain.from_json_file("/Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/py_rates_ikpy-main/baxter_head.json")
 
 
-
+# plot initial position of baxter
 fig, ax = plot.init_3d_figure();
 baxter_left_arm_chain.plot([0] * (len(baxter_left_arm_chain)), ax)
 baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
 ax.legend()
-
+# target position and orientation
 target_orientation = [0, 0, 1]
 target_position = [0.1, 0.5, -0.1]
 
-
+#IK
 ik = baxter_left_arm_chain.inverse_kinematics(target_position, target_orientation, orientation_mode="X")
 
-
+#Shift and orientate arms to target position 
 position = baxter_left_arm_chain.forward_kinematics(ik)[:3, 3]
 orientation = baxter_left_arm_chain.forward_kinematics(ik)[:3, 0]
-
+#plot
 fig, ax = plot.init_3d_figure();
 baxter_left_arm_chain.plot(ik, ax)
 baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
@@ -110,11 +111,12 @@ ax.legend()
 orientation_axis = "X"
 target_orientation = [0, 0, 1]
 
+#reorientated axis
 ik = baxter_left_arm_chain.inverse_kinematics(
     target_position=[0.1, 0.5, -0.1],
     target_orientation=target_orientation,
     orientation_mode=orientation_axis)
-
+#plotting arm
 fig, ax = plot.init_3d_figure();
 baxter_left_arm_chain.plot(ik, ax)
 baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
@@ -124,13 +126,13 @@ ax.legend()
 
 target_orientation = np.eye(3)
 
-
+#IK with all 3 axis orientation
 ik = baxter_left_arm_chain.inverse_kinematics(
     target_position=[0.1, 0.5, -0.1],
     target_orientation=target_orientation,
     orientation_mode="all")
 
-
+# Plotting after IK with all axis
 fig, ax = plot.init_3d_figure();
 baxter_left_arm_chain.plot(ik, ax)
 baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
