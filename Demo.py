@@ -95,4 +95,85 @@ plt.show()
 
 
 ##-------------------------------------Demonstration 3---------------------------------
-#code here
+import numpy as np
+
+from ikpy.chain import Chain
+from ikpy.utils import plot
+
+baxter_left_arm_chain = Chain.from_json_file("resources/baxter/baxter_left_arm.json")
+baxter_right_arm_chain = Chain.from_json_file("resources/baxter/baxter_right_arm.json")
+baxter_pedestal_chain = Chain.from_json_file("resources/baxter/baxter_pedestal.json")
+baxter_head_chain = Chain.from_json_file("resources/baxter/baxter_head.json")
+
+
+from mpl_toolkits.mplot3d import Axes3D;
+fig, ax = plot.init_3d_figure();
+baxter_left_arm_chain.plot([0] * (len(baxter_left_arm_chain)), ax)
+baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
+#baxter_pedestal_chain.plot([0] * (2 + 2), ax)
+#baxter_head_chain.plot([0] * (4 + 2), ax)
+ax.legend()
+
+
+# Let's ask baxter to put his left arm at a target_position, with a target_orientation on the X axis.
+# This means we want the X axis of his hand to follow the desired vector
+target_orientation = [0, 0, 1]
+target_position = [0.1, 0.5, -0.1]
+
+# Compute the inverse kinematics with position
+ik = baxter_left_arm_chain.inverse_kinematics(target_position, target_orientation, orientation_mode="X")
+
+# Let's see what are the final positions and orientations of the robot
+position = baxter_left_arm_chain.forward_kinematics(ik)[:3, 3]
+orientation = baxter_left_arm_chain.forward_kinematics(ik)[:3, 0]
+
+# And compare them with was what required
+print("Requested position: {} vs Reached position: {}".format(target_position, position))
+print("Requested orientation on the X axis: {} vs Reached orientation on the X axis: {}".format(target_orientation, orientation))
+# We see that the chain reached its position!
+
+# Plot how it goes
+fig, ax = plot.init_3d_figure();
+baxter_left_arm_chain.plot(ik, ax)
+baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
+#baxter_pedestal_chain.plot([0] * (2 + 2), ax)
+#baxter_head_chain.plot([0] * (4 + 2), ax)
+ax.legend()
+
+
+# Let's ask baxter to put his left arm's X axis to the absolute Z axis
+orientation_axis = "X"
+target_orientation = [0, 0, 1]
+
+# Compute the inverse kinematics with position
+ik = baxter_left_arm_chain.inverse_kinematics(
+    target_position=[0.1, 0.5, -0.1],
+    target_orientation=target_orientation,
+    orientation_mode=orientation_axis)
+
+# Plot how it goes
+fig, ax = plot.init_3d_figure();
+baxter_left_arm_chain.plot(ik, ax)
+baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
+#baxter_pedestal_chain.plot([0] * (2 + 2), ax)
+#baxter_head_chain.plot([0] * (4 + 2), ax)
+ax.legend()
+
+# Let's ask baxter to put his left arm as 
+target_orientation = np.eye(3)
+
+# Compute the inverse kinematics with position
+ik = baxter_left_arm_chain.inverse_kinematics(
+    target_position=[0.1, 0.5, -0.1],
+    target_orientation=target_orientation,
+    orientation_mode="all")
+
+# Plot how it goes
+fig, ax = plot.init_3d_figure();
+baxter_left_arm_chain.plot(ik, ax)
+baxter_right_arm_chain.plot([0] * (len(baxter_right_arm_chain)), ax)
+#baxter_pedestal_chain.plot([0] * (2 + 2), ax)
+#baxter_head_chain.plot([0] * (4 + 2), ax)
+ax.legend()
+
+
