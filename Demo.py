@@ -1,6 +1,4 @@
-import ikpy.chain
-import ikpy.utils.plot as plot_utils
-import matplotlib.pyplot as plt
+
 
 ##---------------------------------- Demonstration 1---------------------------------
 #code here
@@ -14,6 +12,10 @@ import matplotlib.pyplot as plt
 
 
 ##---------------------------------- Demonstration 2---------------------------------
+import ikpy.chain
+import ikpy.utils.plot as plot_utils
+import matplotlib.pyplot as plt
+
 plt.close('all')
 
 my_chain = ikpy.chain.Chain.from_urdf_file("//Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/ikpy-3.3.3/resources/poppy_ergo.URDF")
