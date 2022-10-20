@@ -2,10 +2,18 @@ import ikpy.chain
 import ikpy.utils.plot as plot_utils
 import matplotlib.pyplot as plt
 
-## Demonstration 1
+##---------------------------------- Demonstration 1---------------------------------
 #code here
 
-## Demonstration 2
+
+
+
+
+
+
+
+
+##---------------------------------- Demonstration 2---------------------------------
 plt.close('all')
 
 my_chain = ikpy.chain.Chain.from_urdf_file("//Users/yugthapa/Downloads/Application Programing for Eng/Lightining Talk/ikpy-3.3.3/resources/poppy_ergo.URDF")
@@ -19,5 +27,5 @@ plt.xlim(-0.5, 0.5)
 plt.ylim(-0.5, 0.5)
 plt.show()
 
-## Demonstration 3
+##-------------------------------------Demonstration 3---------------------------------
 #code here
