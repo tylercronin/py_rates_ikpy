@@ -16,7 +16,7 @@
 #     OriginLink(),
 #     URDFLink(
 #       name="link 2",
-#       origin_translation=[-10, 0, 5],
+#       origin_translation=[0, 0, 5],
 #       origin_orientation=[0, 0, 0],
 #       rotation=[0, 1, 0],
 #     ),
@@ -46,7 +46,7 @@
 #     )
 # ])
 
-# target_position = [40, 5, 20]
+# target_position = [40, 0, 20]
 
 
 # chain_position = my_chain.forward_kinematics([0] * 6)
