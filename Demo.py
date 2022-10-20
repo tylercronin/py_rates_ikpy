@@ -1,6 +1,8 @@
 
 
 ##---------------------------------- Demonstration 1---------------------------------
+
+
 # IKPy package installed through anaconda successfully using pip
 
 from ikpy.chain import Chain
@@ -72,6 +74,8 @@ plt.show()
 
 
 ##---------------------------------- Demonstration 2---------------------------------
+
+
 import ikpy.chain
 import ikpy.utils.plot as plot_utils
 import matplotlib.pyplot as plt
@@ -88,6 +92,7 @@ my_chain.plot(my_chain.inverse_kinematics(target_position), ax, target=target_po
 plt.xlim(-0.5, 0.5)
 plt.ylim(-0.5, 0.5)
 plt.show()
+
 
 ##-------------------------------------Demonstration 3---------------------------------
 #code here
